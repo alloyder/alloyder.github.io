@@ -98,7 +98,7 @@ class Enemy {
             y
     }
 }
-const friction = 0.97
+const friction = 0.99
 class Particle {
     constructor(x, y, radius, color,
         velocity) {
@@ -245,7 +245,7 @@ function animate() {
                     )
                 }
 
-                if (enemy.radius - 10 < 5) {
+                if (enemy.radius - 10 > 5) {
 
                 // increase our score
                 score += 129
@@ -293,7 +293,7 @@ addEventListener('click', (event) => {
     projectiles.push(
         new Projectile(
             canvas.width / 2, canvas.height
-        / 2, 5, 'white', velocity
+        / 2, 5, 'red', velocity
         
 
         ))
