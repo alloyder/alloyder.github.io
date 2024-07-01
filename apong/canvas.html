@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple p5.js Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // A class for the ball
+      class Ball {
+        constructor(x, y, dx, dy) {
+          this.x = x;
+          this.y = y;
+          this.dx = dx;
+          this.dy = dy;
+        }
+        draw() {
+          ellipse(this.x, this.y, 50, 50);
+        }
+        update() {
+          this.x += this.dx;
+          this.y += this.dy;
+
+
+        }
+      }
+      // A class for the paddles
+      class Paddle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+        }
+        // Drawing the paddles
+        draw() {
+          rect(this.x, this.y, 20, 150);
+        }
+
+        move() {
+          // These make paddle1 or the paddle on the right move up and down
+          if (this.x === 80){
+            if(keyIsDown(87) === true){
+              this.y -= 5
+            }
+            if(keyIsDown(83) === true){
+              this.y += 5
+            }
+          } 
+          if(this.x === 1420){
+            if(keyIsDown(UP_ARROW) === true){
+              this.y -= 5
+            }
+           
+            if(keyIsDown(DOWN_ARROW) === true){
+              this.y += 5
+            }
+         }
+        }
+      }  
+     
+      // Making the objects
+
+      var p1 = new Paddle(1420, 125);
+      var p2 = new Paddle(80, 125)
+      var b1 = new Ball(500, 200, 5, 4);
+
+      // Creating the canvas
+
+      function setup() {
+        createCanvas(1500, 400);
+      }
+
+      function draw() {
+        background(220);
+        p1.draw();
+        p2.draw();
+        b1.draw();
+        p1.move()
+        p2.move()
+        b1.update();
+
+        //console.log("ball:", b1.x, b1.y)
+
+        // The if statements make the ball bounce if it touches a paddle  
+        if(b1.x < 1440 && b1.x > 1395 && b1.y > p1.y && b1.y < p1.y + 150){
+          b1.dx = -1 * b1.dx
+        }
+
+        if(b1.x < 100 && b1.x > 55 && b1.y > p2.y && b1.y < p2.y + 150){
+          b1.dx = -1 * b1.dx
+        }
+        // This makes it so that if you press the space bar add a random number between -5 and 6 that will give the ball a boost, same for the vertical
+        if(keyIsDown(32))
+          b1.dx += random(-5,6)
+        if(keyIsDown(32))
+          b1.dy += random(-5,6)   
+        // The if statements make the ball bounce if it touches a wall
+
+        if (b1.x >= 1475) {
+          b1.dx = -b1.dx;
+        }
+        if (b1.y >= 375) {
+          b1.dy = b1.dy * -1;
+        }
+        if (b1.x <= 20) {
+          b1.dx = -1 * b1.dx;
+        }
+        if (b1.y <= 20) {
+          b1.dy = -1 * b1.dy;
+        }
+        
+      }
+    </script>
+  </body>
+</html>
