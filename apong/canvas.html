@@ -147,12 +147,25 @@
           b1.x = 750
           b1.y = 200
         }
+
+        //Checks the direction of the ball and if it is going up and down really fast then it will change it
+        if(b1.dx > -10 && b1.dx < 10 && b1.dy > 3){
+          b1.dx = 5
+          b1.dy = 2
+          console.log("Wrong!!!")
+        }
+        if(b1.dx > -10 && b1.dx < 10 && b1.dy < -3){
+          b1.dx = -5
+          b1.dy = -2
+          console.log("Wrong111111!!!")
+        }
         // Creates text for the scores
         textSize(40)
         text(score1, 1400, 50)
         text(score2, 80, 50)
-        console.log(score2)
-        console.log(score1)
+        //console.log(score2)
+        //console.log(score1)
+        console.log(b1.dx,b1.dy)
       }
     </script>
   </body>
